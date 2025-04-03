@@ -12,6 +12,7 @@ import {
   getStremioJackettStreams,
   getTorboxStreams,
   getTorrentioStreams,
+  getStreamFusionStreams,
 } from '@aiostreams/wrappers';
 import {
   Stream,
@@ -494,18 +495,18 @@ export class AIOStreams {
       0
     );
     const reportLines = [
-      '╔═══════════════════════╤════════════╗',
-      '║ Skip Reason           │ Count      ║',
-      '╟───────────────────────┼────────────╢',
+      'â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•¤â•â•â•â•â•â•â•â•â•â•â•â•â•—',
+      'â•‘ Skip Reason           â”‚ Count      â•‘',
+      'â•Ÿâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•¢',
       ...Object.entries(skipReasons)
         .filter(([reason, count]) => count > 0)
         .map(
           ([reason, count]) =>
-            `║ ${reason.padEnd(21)} │ ${String(count).padStart(10)} ║`
+            `â•‘ ${reason.padEnd(21)} â”‚ ${String(count).padStart(10)} â•‘`
         ),
-      '╟───────────────────────┼────────────╢',
-      `║ Total Skipped         │ ${String(totalSkipped).padStart(10)} ║`,
-      '╚═══════════════════════╧════════════╝',
+      'â•Ÿâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â•¢',
+      `â•‘ Total Skipped         â”‚ ${String(totalSkipped).padStart(10)} â•‘`,
+      'â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•§â•â•â•â•â•â•â•â•â•â•â•â•â•',
     ];
 
     if (totalSkipped > 0) logger.info('\n' + reportLines.join('\n'));
@@ -566,9 +567,9 @@ export class AIOStreams {
       url: proxiedUrl,
       name: this.config.addonNameInDescription
         ? Settings.ADDON_NAME
-        : `🕵️ ${name}`,
+        : `ðŸ•µï¸ ${name}`,
       description: this.config.addonNameInDescription
-        ? `🕵️ ${name.split('\n').join(' ')}\n${description}`
+        ? `ðŸ•µï¸ ${name.split('\n').join(' ')}\n${description}`
         : description,
       subtitles: parsedStream.stream?.subtitles,
       behaviorHints: {
@@ -696,10 +697,10 @@ export class AIOStreams {
       name: this.config.addonNameInDescription
         ? Settings.ADDON_NAME
         : Settings.SHOW_DIE
-          ? `🎲 ${name}`
+          ? `ðŸŽ² ${name}`
           : name,
       description: this.config.addonNameInDescription
-        ? `🎲 ${name.split('\n').join(' ')}\n${description}`
+        ? `ðŸŽ² ${name.split('\n').join(' ')}\n${description}`
         : description,
       subtitles: parsedStream.stream?.subtitles,
       sources: parsedStream.torrent?.sources,
@@ -1102,6 +1103,17 @@ export class AIOStreams {
         return await getDMMCastStreams(
           this.config,
           addon.options,
+          streamRequest,
+          addonId
+        );
+      }
+      case 'streamfusion': {
+        return await getStreamFusionStreams(
+          this.config,
+          {
+            ...addon.options,
+            apiKey: addon.options.apiKey
+          },
           streamRequest,
           addonId
         );
