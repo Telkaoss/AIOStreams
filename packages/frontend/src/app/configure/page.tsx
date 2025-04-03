@@ -210,7 +210,7 @@ export default function Configure() {
     Settings.MAX_EPISODE_SIZE
   );
   const [choosableAddons, setChoosableAddons] = useState<string[]>(
-    addonDetails.map((addon) => addon.id)
+    ['streamfusion', 'jackettio', 'comet', ...addonDetails.map((addon) => addon.id).filter(id => !['streamfusion', 'jackettio', 'comet'].includes(id))]
   );
   const [showApiKeyInput, setShowApiKeyInput] = useState<boolean>(false);
   const [manifestUrl, setManifestUrl] = useState<string | null>(null);
