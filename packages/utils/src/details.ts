@@ -740,6 +740,48 @@ export const addonDetails: AddonDetail[] = [
       },
     ],
   },
+  {
+    name: 'StreamFusion',
+    id: 'streamfusion',
+    requiresService: true,
+    supportedServices: [
+      'realdebrid',
+      'alldebrid',
+      'premiumize',
+      'torbox',
+    ],
+    options: [
+      {
+        id: 'overrideName',
+        required: false,
+        label: 'Override Addon Name',
+        description:
+          'Override the name of the StreamFusion addon that shows up in the results',
+        type: 'text',
+      },
+      {
+        id: 'apiKey',
+        required: true,
+        label: 'API Key',
+        description:
+          'The API key for StreamFusion. Required to access the StreamFusion service. You can get your API key from the Telegram bot: t.me/Stremiofr_bot - Send /generate command.',
+        type: 'text',
+        secret: true,
+      },
+      {
+        id: 'indexerTimeout',
+        required: false,
+        label: 'Override Indexer Timeout',
+        description:
+          'The timeout for fetching streams from the StreamFusion addon. This is the time in milliseconds that the addon will wait for a response before timing out. Leave it empty to use the recommended timeout.',
+        type: 'number',
+        constraints: {
+          min: Settings.MIN_TIMEOUT,
+          max: Settings.MAX_TIMEOUT,
+        },
+      },
+    ],
+  },
 ];
 
 export const serviceDetails = [
@@ -935,7 +977,22 @@ export const serviceDetails = [
       },
     ],
   },
+  {
+    name: 'StreamFusion',
+    id: 'streamfusion',
+    shortName: 'SF',
+    knownNames: ['SF', 'Stream Fusion', 'StreamFusion', 'Stream-Fusion'],
+    signUpLink: 'https://stream-fusion.stremiofr.com/',
+    credentials: [
+      {
+        label: 'API Key',
+        id: 'apiKey',
+        link: 'https://stream-fusion.stremiofr.com/',
+      },
+    ],
+  },
 ];
+
 export const compressedConfigMap: Record<string, string> = {
   streamTypes: 'a',
   usenet: 'b',
